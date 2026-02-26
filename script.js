@@ -292,67 +292,26 @@ function renderActivities() {
 
     // Get hardcoded cards from HTML (those with data-hardcoded attribute)
     const hardcodedCards = activitiesGrid.querySelectorAll('.activity-card[data-hardcoded]');
-
-    const filtered = currentFilter === 'all'
-        ? activities
-        : activities.filter(function(a) { return a.type === currentFilter; });
-
-    // Remove only dynamic cards (not hardcoded ones)
+    
+    // Remove all dynamic cards (not hardcoded ones)
     activitiesGrid.querySelectorAll('.activity-card:not([data-hardcoded])').forEach(function(c) { c.remove(); });
+    
+    // Remove empty state if it exists
     const emptyState = activitiesGrid.querySelector('.empty-state');
     if (emptyState) emptyState.remove();
-
-    if (filtered.length === 0 && hardcodedCards.length === 0) {
+    
+    // If there are no hardcoded cards, show empty state
+    if (hardcodedCards.length === 0) {
         activitiesGrid.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">🗂️</div>
-                <p>${currentFilter === 'all' ? 'No activities yet.' : 'No items in this category.'}</p>
+                <p>No activities yet.</p>
             </div>
         `;
         return;
     }
-
-    for (let i = 0; i < filtered.length; i++) {
-        const a = filtered[i];
-        let thumb = '';
-
-        if (a.isVideo && a.fileData) {
-            thumb = `<video controls style="width:100%;height:100%;object-fit:cover;display:block;" preload="metadata">
-                <source src="${a.fileData}" type="video/mp4">
-            </video>`;
-        } else if (a.isImage && a.fileData) {
-            thumb = `<img src="${a.fileData}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;cursor:pointer;" onclick="openLightbox('${a.fileData}', '${a.title}')">`;
-        } else {
-            const ext = a.fileName ? a.fileName.split('.').pop().toUpperCase() : 'FILE';
-            const icons = { 'PDF': '📄', 'DOCX': '📝', 'DOC': '📝', 'ZIP': '🗜️', 'MP4': '🎬', 'MOV': '🎬', 'PPTX': '📊', 'XLSX': '📊' };
-            const icon = icons[ext] || '📁';
-            thumb = `<div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0.6">
-                <span style="font-size:2.5rem">${icon}</span>
-                <span style="font-size:0.7rem;color:var(--muted);letter-spacing:0.1em">${ext}</span>
-            </div>`;
-        }
-
-        const card = document.createElement('div');
-        card.className = 'activity-card';
-        card.style.animationDelay = i * 0.07 + 's';
-        card.innerHTML = `
-            <div class="act-card-thumb">
-                ${thumb}
-            </div>
-            <div class="act-card-body">
-                <div class="act-subject">${a.subject}</div>
-                <div class="act-title">${a.title}</div>
-                ${a.desc ? `<div class="act-desc">${a.desc}</div>` : ''}
-                ${a.fileName ? `<div class="act-desc" style="font-size:0.75rem;opacity:0.5">📎 ${a.fileName}</div>` : ''}
-                <div class="act-actions">
-                    ${(a.fileData && !a.isVideo && a.isImage) ?
-                        `<button class="act-btn" onclick="openLightbox('${a.fileData}', '${a.title}')">View</button>` : ''}
-                    ${adminMode ? `<button class="act-btn danger" onclick="deleteActivity(${a.id})">Remove</button>` : ''}
-                </div>
-            </div>
-        `;
-        activitiesGrid.appendChild(card);
-    }
+    
+    // NO DYNAMIC CARDS CREATED HERE - JUST KEEP THE HARDCODED ONES
 }
 
 // ===== DELETE ACTIVITY =====

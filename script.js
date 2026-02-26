@@ -1,3 +1,25 @@
+// ===== ADMIN MODE =====
+// Press Shift + A + D together to show/hide the upload zone (only you know this!)
+let adminMode = false;
+const keysPressed = {};
+
+document.addEventListener('keydown', function(e) {
+    keysPressed[e.key] = true;
+    if (keysPressed['A'] && keysPressed['D'] && keysPressed['Shift']) {
+        adminMode = !adminMode;
+        const uploadZone = document.getElementById('upload-zone');
+        const filterBar = document.getElementById('act-filter-bar');
+        if (uploadZone) {
+            uploadZone.style.display = adminMode ? 'block' : 'none';
+        }
+        showToast(adminMode ? '🔓 Admin mode ON' : '🔒 Admin mode OFF');
+    }
+});
+
+document.addEventListener('keyup', function(e) {
+    delete keysPressed[e.key];
+});
+
 // ===== STATE MANAGEMENT =====
 let activities = [];
 let currentFilter = 'all';
@@ -26,6 +48,14 @@ const actSubject = document.getElementById('act-subject');
 const actDesc = document.getElementById('act-desc-input');
 const toast = document.getElementById('toast');
 
+// Hide upload zone by default (only visible in admin mode)
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadZone = document.getElementById('upload-zone');
+    if (uploadZone) {
+        uploadZone.style.display = 'none';
+    }
+});
+
 // ===== PHOTO MODAL FUNCTIONS =====
 function openPhotoModal() {
     const saved = localStorage.getItem('portfolio_photo_url');
@@ -51,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = this.value.trim();
             const wrap = document.getElementById('photo-url-preview-wrap');
             const prev = document.getElementById('photo-url-preview');
-            
             if (url) {
                 prev.src = url;
                 prev.onload = function() {
@@ -71,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function applyPhotoURL() {
     const url = document.getElementById('photo-url-input').value.trim();
     if (!url) return;
-    
     const testImg = new Image();
     testImg.onload = function() {
         localStorage.setItem('portfolio_photo_url', url);
@@ -79,11 +107,9 @@ function applyPhotoURL() {
         closePhotoModal();
         showToast('✓ Profile photo updated!');
     };
-    
     testImg.onerror = function() {
         document.getElementById('photo-url-error').style.display = 'block';
     };
-    
     testImg.src = url;
 }
 
@@ -91,22 +117,15 @@ function setHeroPhoto(url) {
     const img = document.getElementById('hero-photo');
     img.src = url;
     img.style.display = 'block';
-    
     const aboutAvatar = document.getElementById('about-avatar');
-    if (aboutAvatar) {
-        aboutAvatar.src = url;
-    }
-    
+    if (aboutAvatar) aboutAvatar.src = url;
     const ph = document.getElementById('hero-placeholder');
     if (ph) ph.style.display = 'none';
 }
 
-// Load saved photo on page load
 document.addEventListener('DOMContentLoaded', function() {
     const savedPhotoURL = localStorage.getItem('portfolio_photo_url');
-    if (savedPhotoURL) {
-        setHeroPhoto(savedPhotoURL);
-    }
+    if (savedPhotoURL) setHeroPhoto(savedPhotoURL);
 });
 
 // ===== TOAST NOTIFICATION =====
@@ -114,7 +133,6 @@ function showToast(message) {
     if (!toast) return;
     toast.textContent = message;
     toast.classList.add('show');
-    
     setTimeout(function() {
         toast.classList.remove('show');
     }, 2800);
@@ -129,14 +147,12 @@ function handleFileSelect(event) {
     selectedIsImage = file.type.startsWith('image/');
     const isVideo = file.type.startsWith('video/');
 
-    // Update button text
     const btn = document.querySelector('.choose-btn');
     if (btn) {
         btn.textContent = '✓ File ready — click again to save!';
         btn.style.background = '#5cb85c';
     }
 
-    // Auto-fill title if empty
     if (!actTitle.value) {
         actTitle.value = file.name.replace(/\.[^/.]+$/, '');
     }
@@ -154,31 +170,23 @@ function handleFileSelect(event) {
     }
 }
 
-// Drag & drop on upload zone
+// Drag & drop
 if (uploadZone) {
     uploadZone.addEventListener('dragover', function(e) {
         e.preventDefault();
         uploadZone.classList.add('drag');
     });
-    
     uploadZone.addEventListener('dragleave', function() {
         uploadZone.classList.remove('drag');
     });
-    
     uploadZone.addEventListener('drop', function(e) {
         e.preventDefault();
         uploadZone.classList.remove('drag');
-        
         const file = e.dataTransfer.files[0];
         if (!file) return;
-        
         selectedFileName = file.name;
         selectedIsImage = file.type.startsWith('image/');
-        
-        if (!actTitle.value) {
-            actTitle.value = file.name.replace(/\.[^/.]+$/, '');
-        }
-        
+        if (!actTitle.value) actTitle.value = file.name.replace(/\.[^/.]+$/, '');
         if (selectedIsImage) {
             const reader = new FileReader();
             reader.onload = function(ev) {
@@ -193,30 +201,22 @@ if (uploadZone) {
     });
 }
 
-// Choose Files button logic
 document.addEventListener('DOMContentLoaded', function() {
     const chooseBtn = document.querySelector('.choose-btn');
     if (chooseBtn && actFile) {
         chooseBtn.onclick = function() {
             const title = actTitle.value.trim();
-            
-            // If no file selected yet, open file picker
             if (!selectedFileData) {
                 actFile.click();
                 return;
             }
-            
-            // If file is selected but no title, ask for title
             if (!title) {
                 showToast('⚠️ Please enter an activity title first.');
                 return;
             }
-            
             saveActivity();
         };
     }
-    
-    // File input change handler
     if (actFile) {
         actFile.addEventListener('change', handleFileSelect);
     }
@@ -227,14 +227,14 @@ function saveActivity() {
     const title = actTitle.value.trim();
     const subject = actSubject.value.trim() || 'General';
     const desc = actDesc.value.trim();
-    
+
     if (!title) {
         showToast('⚠️ Please enter an activity title');
         return;
     }
-    
+
     const isVideo = selectedFileData && selectedFileData.startsWith('data:video');
-    
+
     const activity = {
         id: Date.now(),
         title: title,
@@ -246,24 +246,17 @@ function saveActivity() {
         isVideo: isVideo,
         type: subject.toLowerCase().includes('project') ? 'project' : 'all'
     };
-    
+
     activities.unshift(activity);
 
-    // Try to save to localStorage
     try {
         localStorage.setItem('portfolio_activities', JSON.stringify(activities));
     } catch(e) {
-        // If quota exceeded, save metadata only
-        const lite = activities.map(function(a) {
-            return {...a, fileData: null};
-        });
-        try {
-            localStorage.setItem('portfolio_activities', JSON.stringify(lite));
-        } catch(e2) {}
-        showToast('⚠️ File visible this session but may not persist after reload (file too large).');
+        const lite = activities.map(function(a) { return {...a, fileData: null}; });
+        try { localStorage.setItem('portfolio_activities', JSON.stringify(lite)); } catch(e2) {}
+        showToast('⚠️ File visible this session only (file too large to persist).');
     }
 
-    // Reset form
     actTitle.value = '';
     actSubject.value = '';
     actDesc.value = '';
@@ -271,8 +264,7 @@ function saveActivity() {
     selectedFileData = null;
     selectedFileName = '';
     selectedIsImage = false;
-    
-    // Reset button
+
     const chooseBtn = document.querySelector('.choose-btn');
     if (chooseBtn) {
         chooseBtn.textContent = '＋ Choose Files';
@@ -287,11 +279,7 @@ function saveActivity() {
 if (filterBar) {
     filterBar.addEventListener('click', function(e) {
         if (!e.target.matches('.act-filter-btn')) return;
-        
-        document.querySelectorAll('.act-filter-btn').forEach(function(b) {
-            b.classList.remove('active');
-        });
-        
+        document.querySelectorAll('.act-filter-btn').forEach(function(b) { b.classList.remove('active'); });
         e.target.classList.add('active');
         currentFilter = e.target.dataset.filter;
         renderActivities();
@@ -301,25 +289,29 @@ if (filterBar) {
 // ===== RENDER ACTIVITIES =====
 function renderActivities() {
     if (!activitiesGrid) return;
-    
-    const filtered = currentFilter === 'all' 
-        ? activities 
-        : activities.filter(function(a) {
-            return a.type === currentFilter;
-        });
 
-    if (filtered.length === 0) {
+    // Get hardcoded cards from HTML (those with data-hardcoded attribute)
+    const hardcodedCards = activitiesGrid.querySelectorAll('.activity-card[data-hardcoded]');
+
+    const filtered = currentFilter === 'all'
+        ? activities
+        : activities.filter(function(a) { return a.type === currentFilter; });
+
+    // Remove only dynamic cards (not hardcoded ones)
+    activitiesGrid.querySelectorAll('.activity-card:not([data-hardcoded])').forEach(function(c) { c.remove(); });
+    const emptyState = activitiesGrid.querySelector('.empty-state');
+    if (emptyState) emptyState.remove();
+
+    if (filtered.length === 0 && hardcodedCards.length === 0) {
         activitiesGrid.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">🗂️</div>
-                <p>${currentFilter === 'all' ? 'No activities yet. Upload your first one above!' : 'No items in this category.'}</p>
+                <p>${currentFilter === 'all' ? 'No activities yet.' : 'No items in this category.'}</p>
             </div>
         `;
         return;
     }
 
-    let html = '';
-    
     for (let i = 0; i < filtered.length; i++) {
         const a = filtered[i];
         let thumb = '';
@@ -327,17 +319,12 @@ function renderActivities() {
         if (a.isVideo && a.fileData) {
             thumb = `<video controls style="width:100%;height:100%;object-fit:cover;display:block;" preload="metadata">
                 <source src="${a.fileData}" type="video/mp4">
-                Your browser does not support video.
             </video>`;
         } else if (a.isImage && a.fileData) {
             thumb = `<img src="${a.fileData}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;cursor:pointer;" onclick="openLightbox('${a.fileData}', '${a.title}')">`;
         } else {
             const ext = a.fileName ? a.fileName.split('.').pop().toUpperCase() : 'FILE';
-            const icons = {
-                'PDF': '📄', 'DOCX': '📝', 'DOC': '📝', 
-                'ZIP': '🗜️', 'MP4': '🎬', 'MOV': '🎬',
-                'PPTX': '📊', 'XLSX': '📊'
-            };
+            const icons = { 'PDF': '📄', 'DOCX': '📝', 'DOC': '📝', 'ZIP': '🗜️', 'MP4': '🎬', 'MOV': '🎬', 'PPTX': '📊', 'XLSX': '📊' };
             const icon = icons[ext] || '📁';
             thumb = `<div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0.6">
                 <span style="font-size:2.5rem">${icon}</span>
@@ -345,39 +332,33 @@ function renderActivities() {
             </div>`;
         }
 
-        html += `
-            <div class="activity-card" style="animation-delay:${i * 0.07}s">
-                <div class="act-card-thumb" style="${a.isVideo ? 'aspect-ratio:16/9;height:auto;' : ''}">
-                    ${thumb}
-                </div>
-                <div class="act-card-body">
-                    <div class="act-subject">${a.subject}</div>
-                    <div class="act-title">${a.title}</div>
-                    ${a.desc ? `<div class="act-desc">${a.desc}</div>` : ''}
-                    ${a.fileName ? `<div class="act-desc" style="font-size:0.75rem;opacity:0.5">📎 ${a.fileName}</div>` : ''}
-                    <div class="act-actions">
-                        ${(a.fileData && !a.isVideo && a.isImage) ? 
-                            `<button class="act-btn" onclick="openLightbox('${a.fileData}', '${a.title}')">View</button>` : 
-                            ''
-                        }
-                        <button class="act-btn danger" onclick="deleteActivity(${a.id})">Remove</button>
-                    </div>
+        const card = document.createElement('div');
+        card.className = 'activity-card';
+        card.style.animationDelay = i * 0.07 + 's';
+        card.innerHTML = `
+            <div class="act-card-thumb">
+                ${thumb}
+            </div>
+            <div class="act-card-body">
+                <div class="act-subject">${a.subject}</div>
+                <div class="act-title">${a.title}</div>
+                ${a.desc ? `<div class="act-desc">${a.desc}</div>` : ''}
+                ${a.fileName ? `<div class="act-desc" style="font-size:0.75rem;opacity:0.5">📎 ${a.fileName}</div>` : ''}
+                <div class="act-actions">
+                    ${(a.fileData && !a.isVideo && a.isImage) ?
+                        `<button class="act-btn" onclick="openLightbox('${a.fileData}', '${a.title}')">View</button>` : ''}
+                    ${adminMode ? `<button class="act-btn danger" onclick="deleteActivity(${a.id})">Remove</button>` : ''}
                 </div>
             </div>
         `;
+        activitiesGrid.appendChild(card);
     }
-    
-    activitiesGrid.innerHTML = html;
 }
 
 // ===== DELETE ACTIVITY =====
 window.deleteActivity = function(id) {
     if (!confirm('Remove this activity?')) return;
-    
-    activities = activities.filter(function(a) {
-        return a.id !== id;
-    });
-    
+    activities = activities.filter(function(a) { return a.id !== id; });
     localStorage.setItem('portfolio_activities', JSON.stringify(activities));
     renderActivities();
     showToast('Activity removed.');
@@ -385,82 +366,53 @@ window.deleteActivity = function(id) {
 
 // ===== LIGHTBOX =====
 window.openLightbox = function(src, title) {
-    // Remove any existing lightbox first
     const existingLightbox = document.getElementById('lightbox');
     if (existingLightbox) {
         existingLightbox.remove();
         document.body.style.overflow = '';
     }
-    
-    // Create new lightbox
     const lightbox = document.createElement('div');
     lightbox.className = 'lightbox';
     lightbox.setAttribute('id', 'lightbox');
-    
-    // Simple lightbox with just image and close button
     lightbox.innerHTML = `
         <button class="lightbox-close" onclick="closeLightbox()">✕</button>
         <img class="lightbox-img" src="${src}" alt="${title}" />
     `;
-    
-    // Close when clicking on background
     lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
+        if (e.target === lightbox) closeLightbox();
     });
-    
     document.body.appendChild(lightbox);
-    document.body.style.overflow = 'hidden'; // Lock scrolling
+    document.body.style.overflow = 'hidden';
 };
 
-// ===== CLOSE LIGHTBOX =====
 window.closeLightbox = function() {
     const lightbox = document.getElementById('lightbox');
     if (lightbox) {
         lightbox.remove();
-        document.body.style.overflow = ''; // Unlock scrolling
+        document.body.style.overflow = '';
     }
 };
 
-// Close lightbox with Escape key
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeLightbox();
-    }
+    if (e.key === 'Escape') closeLightbox();
 });
 
 // ===== SEND MESSAGE =====
 window.sendMessage = function() {
-    // Show success message
     showToast('✓ Message sent! Thank you 💛');
-    
-    // Clear ALL form fields
-    const nameInputs = document.querySelectorAll('.contact-form-input');
+    document.querySelectorAll('.contact-form-input').forEach(function(i) { i.value = ''; });
     const textarea = document.querySelector('.contact-form-textarea');
-    
-    // Clear all input fields
-    for (let i = 0; i < nameInputs.length; i++) {
-        nameInputs[i].value = '';
-    }
-    
-    // Clear textarea
-    if (textarea) {
-        textarea.value = '';
-    }
+    if (textarea) textarea.value = '';
 };
 
 // ===== INITIAL RENDER =====
 renderActivities();
 
-// Handle photo modal overlay click
 document.addEventListener('DOMContentLoaded', function() {
     const photoModal = document.getElementById('photo-modal');
     if (photoModal) {
         photoModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePhotoModal();
-            }
+            if (e.target === this) closePhotoModal();
         });
     }
 });

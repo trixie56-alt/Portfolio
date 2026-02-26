@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Trisha Mae M. Betasolo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">TMB</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-dept">Engineering Department</div>
+            
+            <div class="hero-name">
+                <span class="first">Trisha Mae</span>
+                <span class="last">M. Betasolo</span>
+            </div>
+            
+            <div class="hero-meta">
+                <span>Student</span>
+                <span class="dot">·</span>
+                <span>3rd Year – Section A</span>
+                <span class="dot">·</span>
+                <span>BS Information Technology</span>
+            </div>
+            
+            <p class="hero-desc">A student who enjoys learning how to build websites and simple applications. Still growing, always curious.</p>
+            
+            <div class="hero-btns">
+                <a href="#about" class="btn btn-primary">View Profile →</a>
+                <a href="#projects" class="btn btn-outline">🗂 My Activities</a>
+            </div>
+        </div>
+        
+        <!-- Profile Photo -->
+        <div class="hero-photo-wrap">
+            <div class="profile-frame" onclick="openPhotoModal()">
+                <div class="profile-placeholder" id="hero-placeholder" style="display:none">
+                    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                    </svg>
+                    <span style="font-size:0.85rem">Click to set your photo URL</span>
+                </div>
+                <img id="hero-photo" src="images/trisha.jpg" alt="Trisha Mae M. Betasolo">
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-mouse"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="profile-section-label">
+            <span class="num">01</span>
+            <span class="line"></span>
+            <span class="lbl">Profile</span>
+        </div>
+        
+        <div class="profile-layout">
+            <!-- LEFT: ID CARD -->
+            <div class="profile-id-card">
+                <div class="profile-id-avatar">
+                  <img id="about-avatar" src="images/trisha.jpg" alt="Trisha Mae M. Betasolo">
+                </div>
+                <div class="profile-id-name">Trisha Mae M.<br>Betasolo</div>
+                <div class="profile-id-dept">Engineering Department</div>
+                <div class="profile-id-year">3rd Year · 2nd Semester</div>
+                <div class="profile-id-badges">
+                    <span class="id-badge gold">🎓 Student</span>
+                    <span class="id-badge">✏️ Designer</span>
+                </div>
+                <div class="profile-id-divider"></div>
+                <div class="profile-id-info">
+                    <div class="profile-id-row">
+                        <span class="icon">✉️</span>
+                        <span>trishamaebetasolo@gmail.com</span>
+                    </div>
+                    <div class="profile-id-row">
+                        <span class="icon">📞</span>
+                        <span>+63 9950033914</span>
+                    </div>
+                    <div class="profile-id-row">
+                        <span class="icon">📍</span>
+                        <span>Binolo Tanauan, Leyte</span>
+                    </div>
+                    <div class="profile-id-row">
+                        <span class="icon">🌐</span>
+                        <span>Filipino, English</span>
+                    </div>
+                </div>
+                <div class="profile-id-socials">
+                    <a href="https://www.facebook.com/trishamae.manahan.27" target="_blank" class="social-btn" title="Facebook">f</a>
+                    <a href="#" class="social-btn" title="Instagram">◎</a>
+                </div>
+            </div>
+            
+            <!-- RIGHT: PANELS -->
+            <div class="profile-panels">
+                <!-- About Me -->
+                <div class="profile-panel">
+                    <div class="panel-heading">
+                        <span class="slash">// </span> About Me
+                    </div>
+                    <div class="panel-body">
+                        <p>Hi! I'm Trisha Mae, a 3rd-year BS Information Technology student at Eastern Visayas State University – Tanauan Campus (EVSU-TC). I enjoy making websites and learning new things related to technology. I'm still developing my skills but I work hard and always try my best in every subject.</p>
+                        <p>I like working with my classmates on group projects and I'm always open to learning from others. My goal is to finish my degree and eventually work as a web developer.</p>
+                    </div>
+                </div>
+                
+                <!-- Tech Skills -->
+                <div class="profile-panel">
+                    <div class="panel-heading">
+                        <span class="slash">// </span> What I Know
+                    </div>
+                    <div class="panel-body">
+                        <span class="skill-pill">Basic HTML</span>
+                        <span class="skill-pill">Basic CSS</span>
+                        <span class="skill-pill">Basic Python</span>
+                        <span class="skill-pill">MS Word</span>
+                        <span class="skill-pill">MS Excel</span>
+                        <span class="skill-pill">MS PowerPoint</span>
+                        <span class="skill-pill">Canva</span>
+                        <span class="skill-pill">Basic Troubleshooting</span>
+                    </div>
+                </div>
+                
+                <!-- Soft Skills -->
+                <div class="profile-panel">
+                    <div class="panel-heading">
+                        <span class="slash">// </span> Soft Skills
+                    </div>
+                    <div class="panel-body">
+                        <span class="soft-pill">Problem Solving</span>
+                        <span class="soft-pill">Teamwork</span>
+                        <span class="soft-pill">Communication</span>
+                        <span class="soft-pill">Time Management</span>
+                        <span class="soft-pill">Leadership</span>
+                        <span class="soft-pill">Critical Thinking</span>
+                        <span class="soft-pill">Adaptability</span>
+                        <span class="soft-pill">Creativity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Experience Section -->
+    <section id="education" style="background: var(--surface);">
+        <div class="profile-section-label">
+            <span class="num">02</span>
+            <span class="line"></span>
+            <span class="lbl">Experience & Education</span>
+        </div>
+        
+        <div style="font-family: var(--font-body); font-weight: 900; font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 0.5rem; line-height: 1.1;">
+            Experience &amp; <span style="color: var(--accent);">Education</span>
+        </div>
+        
+        <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 3rem; font-weight: 300;">Academic journey, achievements, and hands-on experiences.</p>
+        
+        <div class="edu-grid">
+            <!-- Education Column -->
+            <div>
+                <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:2rem;">
+                    <span>🎓</span>
+                    <span style="font-size:1rem; font-weight:700; color:var(--accent);">Education</span>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023 — PRESENT</div>
+                            <div class="timeline-title">BS Information Technology</div>
+                            <div class="timeline-subtitle">🏛 Eastern Visayas State University – Tanauan Campus</div>
+                            <p class="timeline-desc">Currently in 3rd year. Taking subjects like Multimedia Systems, Web Systems and Technology, and Software Engineering.</p>
+                            <div class="timeline-tags">
+                                <span>Multimedia Systems</span>
+                                <span>Web Systems and Technology</span>
+                                <span>Software Engineering</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="border-color: var(--border);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021 — 2023</div>
+                            <div class="timeline-title">Senior High School — General Academic Strand (GAS)</div>
+                            <div class="timeline-subtitle">🏫 Kiling National High School</div>
+                            <p class="timeline-desc">Graduated under the general academic strand.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="border-color: var(--border);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2017 — 2021</div>
+                            <div class="timeline-title">Junior High School</div>
+                            <div class="timeline-subtitle">🏫 Kiling National High School</div>
+                            <p class="timeline-desc">Completed JHS with good academic standing.</p>
+                            <div class="timeline-tags">
+                                <span>JHS Graduate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Experience Column -->
+            <div>
+                <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:2rem;">
+                    <span>💼</span>
+                    <span style="font-size:1rem; font-weight:700; color:var(--accent);">Experience &amp; Achievements</span>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025 — PRESENT</div>
+                            <div class="timeline-title">Representative — IT Organization</div>
+                            <div class="timeline-subtitle">👥 Society of Information Technology Students</div>
+                            <p class="timeline-desc">Joined the college IT club and helped out during tech events and department activities.</p>
+                            <div class="timeline-tags">
+                                <span>Org Representative</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="border-color: var(--border);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023 — 2024</div>
+                            <div class="timeline-title">Group Project Lead</div>
+                            <div class="timeline-subtitle">🎯 School Projects</div>
+                            <p class="timeline-desc">Led a few group projects in class, handled task assignments and helped merge everyone's work.</p>
+                            <div class="timeline-tags">
+                                <span>Teamwork</span>
+                                <span>Leadership</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="projects">
+        <div class="activities-label">
+            <span class="num">03</span>
+            <span class="line"></span>
+            <span class="lbl">Activities</span>
+        </div>
+        
+        <div class="activities-title">My <em>Activities</em></div>
+        <p class="activities-subtitle">Outputs, projects, and requirements submitted throughout the semester.</p>
+        
+        <!-- Upload Zone -->
+        <div class="upload-zone" id="upload-zone">
+            <div class="upload-icon">☁️</div>
+            <h3>Upload Activity</h3>
+            <p>Drag & drop files here, or click to browse</p>
+            <div class="upload-supports">Supports: JPG, PNG, PDF, MP4, DOCX, ZIP</div>
+            <div class="upload-fields">
+                <input class="upload-input" type="text" id="act-title" placeholder="Activity title (e.g. My Project)">
+                <input class="upload-input" type="text" id="act-subject" placeholder="Subject name (e.g. Web Systems)">
+                <input class="upload-input" type="text" id="act-desc-input" placeholder="Short description (optional)">
+            </div>
+            <input type="file" id="act-file" class="upload-file-input" accept="image/*,.pdf,.docx,.zip,.mp4">
+            <button class="choose-btn" onclick="document.getElementById('act-file').click()">＋ Choose Files</button>
+        </div>
+        
+        <!-- Filter Bar -->
+        <div class="act-filter-bar" id="act-filter-bar">
+            <button class="act-filter-btn active" data-filter="all">All</button>
+            <button class="act-filter-btn" data-filter="project">Projects</button>
+        </div>
+        
+        <!-- Activities Grid -->
+        <div class="activities-grid" id="activities-grid">
+            <div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <p>No activities yet. Upload your first one above!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-section-label">
+            <span class="num">04</span>
+            <span class="line"></span>
+            <span class="lbl">Contact</span>
+        </div>
+        
+        <div class="contact-title">Get In <em>Touch</em></div>
+        <p class="contact-subtitle">Want to collaborate, give feedback, or just say hi? Send me a message!</p>
+        
+        <div class="contact-layout">
+            <!-- Left side -->
+            <div class="contact-left">
+                <h3>Let's Connect!</h3>
+                <p>Feel free to reach out if you want to work together on a project, ask questions, or just say hi. I'll try to reply as soon as I can.</p>
+                
+                <div class="contact-info-rows">
+                    <div class="contact-info-row">
+                        <a href="mailto:trishamaebetasolo@gmail.com" style="display:flex; align-items:center; gap:1rem; text-decoration:none; color:inherit;">
+                            <div class="contact-info-icon">✉️</div>
+                            <div class="contact-info-text">
+                                <span class="contact-info-label">Email</span>
+                                <span class="contact-info-value">trishamaebetasolo@gmail.com</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon">📍</div>
+                        <div class="contact-info-text">
+                            <span class="contact-info-label">Location</span>
+                            <span class="contact-info-value">Binolo Tanauan, Leyte</span>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <a href="https://www.facebook.com/trishamae.manahan.27" target="_blank" style="display:flex; align-items:center; gap:1rem; text-decoration:none; color:inherit;">
+                            <div class="contact-info-icon">👤</div>
+                            <div class="contact-info-text">
+                                <span class="contact-info-label">Facebook</span>
+                                <span class="contact-info-value">facebook.com/trishamae.manahan.27</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+           <!-- Right: Form -->
+<div class="contact-form-card">
+    <form action="https://getform.io/f/7z0g1tmuxpn" method="POST">
+        <!-- Optional: Add this to stay on the same page after submission -->
+        <input type="hidden" name="_redirect" value="https://yourdomain.com/#contact">
+        
+        <div class="contact-form-row">
+            <div>
+                <label class="contact-form-label">Your Name</label>
+                <input class="contact-form-input" type="text" name="name" placeholder="e.g. Maria Santos" required>
+            </div>
+            <div>
+                <label class="contact-form-label">Email Address</label>
+                <input class="contact-form-input" type="email" name="email" placeholder="you@example.com" required>
+            </div>
+        </div>
+        <div class="contact-form-group">
+            <label class="contact-form-label">Subject</label>
+            <input class="contact-form-input" type="text" name="subject" placeholder="e.g. Project Collaboration">
+        </div>
+        <div class="contact-form-group">
+            <label class="contact-form-label">Message</label>
+            <textarea class="contact-form-textarea" name="message" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button type="submit" class="contact-send-btn">✈ Send Message</button>
+    </form>
+</div>
+        </div>
+    </section>
+
+   <footer>
+    <div class="footer-brand">&lt; <span>Trisha Mae M. Betasolo</span> /&gt;</div>
+    <div class="footer-copy">© 2025 · Engineering Department · EVSU-Tanauan Campus</div>
+    <a href="#home" class="footer-back">∧</a>
+</footer>
+    
+    <!-- Photo Modal -->
+    <div class="modal-overlay" id="photo-modal" onclick="if(event.target===this) closePhotoModal()">
+        <div class="modal" style="max-width:420px">
+            <h2 class="modal-title" style="font-size:1.3rem; margin-bottom:1.2rem">🔗 Set Profile Photo</h2>
+            <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem; line-height:1.6">
+                Paste a direct image URL below (e.g. from GitHub, LinkedIn, Imgur, or any image hosting).
+            </p>
+            <div class="form-group">
+                <label class="form-label">Image URL</label>
+                <input class="form-input" type="url" id="photo-url-input" placeholder="https://example.com/your-photo.jpg">
+            </div>
+            <div id="photo-url-preview-wrap" style="display:none; margin-bottom:1rem; text-align:center">
+                <img id="photo-url-preview" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid var(--accent);" alt="preview">
+            </div>
+            <div id="photo-url-error" style="color:#c97e8b; font-size:0.82rem; margin-bottom:0.75rem; display:none">
+                ⚠️ Couldn't load that image. Make sure it's a direct link to an image file.
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closePhotoModal()">Cancel</button>
+                <button class="btn-submit" onclick="applyPhotoURL()">Set Photo</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast">✓ Activity added successfully!</div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

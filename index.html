@@ -295,12 +295,63 @@
         
         <!-- Activities Grid -->
         <div class="activities-grid" id="activities-grid">
-            <div class="empty-state">
-                <div class="empty-icon">🗂️</div>
-                <p>No activities yet. Upload your first one above!</p>
+
+            <!-- ACTIVITY 1 - Motion Ads -->
+            <div class="activity-card" data-hardcoded>
+                <div class="act-card-thumb">
+                    <video controls style="width:100%;height:100%;object-fit:cover;display:block;" preload="metadata">
+                        <source src="images/motion-ads.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="act-card-body">
+                    <div class="act-subject">Multimedia Systems</div>
+                    <div class="act-title">Motion Ads</div>
+                </div>
             </div>
+
+            <!-- ACTIVITY 2 - Promotional Poster -->
+            <div class="activity-card" data-hardcoded>
+                <div class="act-card-thumb">
+                    <img src="images/promotional-poster.jpg" alt="Promotional Poster" style="width:100%;height:100%;object-fit:cover;cursor:pointer;" onclick="openLightbox('images/promotional-poster.jpg', 'Promotional Poster')">
+                </div>
+                <div class="act-card-body">
+                    <div class="act-subject">Multimedia Systems</div>
+                    <div class="act-title">Promotional Poster</div>
+                    <div class="act-actions">
+                        <button class="act-btn" onclick="openLightbox('images/promotional-poster.jpg', 'Promotional Poster')">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTIVITY 3 - Promotional Campaign -->
+            <div class="activity-card" data-hardcoded>
+                <div class="act-card-thumb">
+                    <img src="images/promotional-campaign.jpg" alt="Promotional Campaign" style="width:100%;height:100%;object-fit:cover;cursor:pointer;" onclick="openLightbox('images/promotional-campaign.jpg', 'Promotional Campaign')">
+                </div>
+                <div class="act-card-body">
+                    <div class="act-subject">Multimedia Systems</div>
+                    <div class="act-title">Promotional Campaign</div>
+                    <div class="act-actions">
+                        <button class="act-btn" onclick="openLightbox('images/promotional-campaign.jpg', 'Promotional Campaign')">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTIVITY 4 - Digital Geometry -->
+            <div class="activity-card" data-hardcoded>
+                <div class="act-card-thumb">
+                    <img src="images/digital-geometry.jpg" alt="Digital Geometry" style="width:100%;height:100%;object-fit:cover;cursor:pointer;" onclick="openLightbox('images/digital-geometry.jpg', 'Digital Geometry')">
+                </div>
+                <div class="act-card-body">
+                    <div class="act-subject">Multimedia Systems</div>
+                    <div class="act-title">Digital Geometry</div>
+                    <div class="act-actions">
+                        <button class="act-btn" onclick="openLightbox('images/digital-geometry.jpg', 'Digital Geometry')">View</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </section>
 
     <!-- Contact Section -->
     <section id="contact">
@@ -413,4 +464,5 @@
     
     <script src="script.js"></script>
 </body>
+
 </html>

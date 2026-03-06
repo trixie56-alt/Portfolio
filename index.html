@@ -84,7 +84,6 @@
                 <div class="profile-id-year">3rd Year · 2nd Semester</div>
                 <div class="profile-id-badges">
                     <span class="id-badge gold">🎓 Student</span>
-                    <span class="id-badge">✏️ Designer</span>
                 </div>
                 <div class="profile-id-divider"></div>
                 <div class="profile-id-info">
@@ -356,7 +355,7 @@
 
 </div>
 
-    <!-- Contact Section -->
+        <!-- Contact Section -->
     <section id="contact">
         <div class="contact-section-label">
             <span class="num">04</span>
@@ -402,33 +401,28 @@
                 </div>
             </div>
             
-           <!-- Right: Form -->
-<div class="contact-form-card">
-    <form action="https://getform.io/f/7z0g1tmuxpn" method="POST">
-        <!-- Optional: Add this to stay on the same page after submission -->
-        <input type="hidden" name="_redirect" value="https://yourdomain.com/#contact">
-        
-        <div class="contact-form-row">
-            <div>
-                <label class="contact-form-label">Your Name</label>
-                <input class="contact-form-input" type="text" name="name" placeholder="e.g. Maria Santos" required>
+            <!-- Right: Form -->
+            <div class="contact-form-card">
+                <div class="contact-form-row">
+                    <div>
+                        <label class="contact-form-label">Your Name</label>
+                        <input class="contact-form-input" type="text" id="contact-name" placeholder="e.g. Maria Santos">
+                    </div>
+                    <div>
+                        <label class="contact-form-label">Email Address</label>
+                        <input class="contact-form-input" type="email" id="contact-email" placeholder="you@example.com">
+                    </div>
+                </div>
+                <div class="contact-form-group">
+                    <label class="contact-form-label">Subject</label>
+                    <input class="contact-form-input" type="text" id="contact-subject" placeholder="e.g. Project Collaboration">
+                </div>
+                <div class="contact-form-group">
+                    <label class="contact-form-label">Message</label>
+                    <textarea class="contact-form-textarea" id="contact-message" placeholder="Write your message here..."></textarea>
+                </div>
+                <button onclick="sendMessage()" class="contact-send-btn">✈ Send Message</button>
             </div>
-            <div>
-                <label class="contact-form-label">Email Address</label>
-                <input class="contact-form-input" type="email" name="email" placeholder="you@example.com" required>
-            </div>
-        </div>
-        <div class="contact-form-group">
-            <label class="contact-form-label">Subject</label>
-            <input class="contact-form-input" type="text" name="subject" placeholder="e.g. Project Collaboration">
-        </div>
-        <div class="contact-form-group">
-            <label class="contact-form-label">Message</label>
-            <textarea class="contact-form-textarea" name="message" placeholder="Write your message here..." required></textarea>
-        </div>
-        <button type="submit" class="contact-send-btn">✈ Send Message</button>
-    </form>
-</div>
         </div>
     </section>
 
@@ -437,7 +431,7 @@
     <div class="footer-copy">© 2025 · Engineering Department · EVSU-Tanauan Campus</div>
     <a href="#home" class="footer-back">∧</a>
 </footer>
-    
+        
     <!-- Photo Modal -->
     <div class="modal-overlay" id="photo-modal" onclick="if(event.target===this) closePhotoModal()">
         <div class="modal" style="max-width:420px">
@@ -469,5 +463,6 @@
 </body>
 
 </html>
+
 
 

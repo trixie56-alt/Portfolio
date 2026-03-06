@@ -377,10 +377,48 @@ document.addEventListener('keydown', function(e) {
 
 // ===== SEND MESSAGE =====
 window.sendMessage = function() {
-    showToast('✓ Message sent! Thank you 💛');
-    document.querySelectorAll('.contact-form-input').forEach(function(i) { i.value = ''; });
-    const textarea = document.querySelector('.contact-form-textarea');
-    if (textarea) textarea.value = '';
+    // Get form values
+    const nameInputs = document.querySelectorAll('.contact-form-input');
+    const name = nameInputs[0]?.value || '';
+    const email = nameInputs[1]?.value || '';
+    const message = document.querySelector('.contact-form-textarea')?.value || '';
+    
+    // Validate
+    if (!name || !email || !message) {
+        showToast('⚠️ Please fill in all fields');
+        return;
+    }
+    
+    // Prepare data for Web3Forms
+    const formData = new FormData();
+    formData.append('access_key', '0fda9c62-cd61-4122-b3ad-10f247db50e0');
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('message', message);
+    
+    // Show loading toast
+    showToast('⏳ Sending message...');
+    
+    // Send to Web3Forms
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast('✓ Message sent! Thank you 💛');
+            // Clear form
+            nameInputs.forEach(i => i.value = '');
+            document.querySelector('.contact-form-textarea').value = '';
+        } else {
+            showToast('⚠️ Error: ' + (data.message || 'Something went wrong'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('⚠️ Network error. Please try again.');
+    });
 };
 
 // ===== INITIAL RENDER =====
@@ -394,4 +432,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 

@@ -1356,6 +1356,33 @@ footer {
     color: var(--accent);
 }
 
+/* Lightbox video styles - ADD THIS */
+.lightbox-video {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Make video controls visible */
+.lightbox-video::-webkit-media-controls-enclosure {
+    background: rgba(0,0,0,0.5);
+    border-radius: 0 0 4px 4px;
+}
+
+/* Ensure fullscreen button works */
+.lightbox-video::-webkit-media-controls-fullscreen-button {
+    display: flex;
+}
+
+/* For Firefox */
+.lightbox-video::-moz-range-progress {
+    background-color: var(--accent);
+}
+
 /* Animations */
 @keyframes fadeUp {
     from {
@@ -1445,4 +1472,5 @@ footer {
     gap: 1rem;
     width: 100%;
     box-sizing: border-box;
+
 }

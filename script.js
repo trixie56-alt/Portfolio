@@ -330,16 +330,35 @@ window.openLightbox = function(src, title) {
         existingLightbox.remove();
         document.body.style.overflow = '';
     }
+    
     const lightbox = document.createElement('div');
     lightbox.className = 'lightbox';
     lightbox.setAttribute('id', 'lightbox');
-    lightbox.innerHTML = `
-        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-        <img class="lightbox-img" src="${src}" alt="${title}" />
-    `;
+    
+    // Check if it's a video file
+    const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
+    
+    if (isVideo) {
+        // Video lightbox
+        lightbox.innerHTML = `
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <video class="lightbox-video" controls autoplay playsinline>
+                <source src="${src}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        `;
+    } else {
+        // Image lightbox
+        lightbox.innerHTML = `
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <img class="lightbox-img" src="${src}" alt="${title}" />
+        `;
+    }
+    
     lightbox.addEventListener('click', function(e) {
         if (e.target === lightbox) closeLightbox();
     });
+    
     document.body.appendChild(lightbox);
     document.body.style.overflow = 'hidden';
 };
@@ -375,3 +394,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
